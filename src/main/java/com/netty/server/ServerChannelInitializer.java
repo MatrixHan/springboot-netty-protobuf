@@ -38,16 +38,15 @@ public class ServerChannelInitializer extends ChannelInitializer<SocketChannel> 
     protected void initChannel(SocketChannel socketChannel) throws Exception {
     	ChannelPipeline p = socketChannel.pipeline();
     	
-    	p.addLast("idleStateHandler", new IdleStateHandler(READER_IDLE_TIME_SECONDS
-    			, WRITER_IDLE_TIME_SECONDS, ALL_IDLE_TIME_SECONDS, TimeUnit.SECONDS));
-	    p.addLast("idleTimeoutHandler", new IdleServerHandler());
-	    
+//    	p.addLast("idleStateHandler", new IdleStateHandler(READER_IDLE_TIME_SECONDS
+//    			, WRITER_IDLE_TIME_SECONDS, ALL_IDLE_TIME_SECONDS, TimeUnit.SECONDS));
+
         p.addLast(new ProtobufVarint32FrameDecoder());
         p.addLast(new ProtobufDecoder(MessageBase.getDefaultInstance()));
 
         p.addLast(new ProtobufVarint32LengthFieldPrepender());
         p.addLast(new ProtobufEncoder());
-	    
+
         p.addLast("authServerHandler", authServerHandler);
         p.addLast("hearableServerHandler", logicServerHandler);
     }

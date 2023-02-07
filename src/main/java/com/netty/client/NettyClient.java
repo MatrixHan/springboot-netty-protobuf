@@ -68,7 +68,6 @@ public class NettyClient {
 
 						p.addLast("idleStateHandler", new IdleStateHandler(READER_IDLE_TIME_SECONDS
 								, WRITER_IDLE_TIME_SECONDS, ALL_IDLE_TIME_SECONDS, TimeUnit.SECONDS));
-						p.addLast("idleTimeoutHandler", new IdleClientHandler(NettyClient.this));
 
 						p.addLast(new ProtobufVarint32FrameDecoder());
 						p.addLast(new ProtobufDecoder(MessageBase.getDefaultInstance()));
@@ -77,6 +76,10 @@ public class NettyClient {
 						p.addLast(new ProtobufEncoder());
 
 						p.addLast("clientHandler", new LogicClientHandler());
+
+						p.addLast("idleTimeoutHandler", new IdleClientHandler(NettyClient.this));
+
+
 					}
 				});
 				bootstrap.remoteAddress(HOST, PORT);

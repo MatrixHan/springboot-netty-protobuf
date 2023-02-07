@@ -63,6 +63,9 @@ public class Application{
     @Value("${so.keepalive}")
     private boolean keepAlive;
 
+    @Value("true")
+    private boolean reuseaddr;
+
     @Value("${so.backlog}")
     private int backlog;
     
@@ -91,6 +94,7 @@ public class Application{
         Map<ChannelOption<?>, Object> options = new HashMap<ChannelOption<?>, Object>();
         options.put(ChannelOption.SO_KEEPALIVE, keepAlive);
         options.put(ChannelOption.SO_BACKLOG, backlog);
+        options.put(ChannelOption.SO_REUSEADDR,reuseaddr);
         return options;
     }
 

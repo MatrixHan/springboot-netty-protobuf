@@ -35,7 +35,7 @@ public class AuthServerHandler extends ChannelInboundHandlerAdapter {
 	
 	@Autowired
 	@Qualifier("channelRepository")
-	ChannelRepository channelRepository;
+	public ChannelRepository channelRepository;
 	
 	@SuppressWarnings("deprecation")
 	@Override
